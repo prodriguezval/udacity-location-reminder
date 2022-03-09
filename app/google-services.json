@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "223582711267",
+    "project_id": "udacity-maps-app-90723",
+    "storage_bucket": "udacity-maps-app-90723.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223582711267:android:3ce62cbab9485ed5bd04d6",
+        "android_client_info": {
+          "package_name": "com.udacity.project4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223582711267-ddaa94v12v536ikupqvktgtpvbr1aarl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiowGSl-0uFk1jXgdHwSKy1GuAadzhnjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223582711267-ddaa94v12v536ikupqvktgtpvbr1aarl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
