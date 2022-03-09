@@ -43,6 +43,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // App dependencies
+    implementation platform('com.google.firebase:firebase-bom:29.1.0')
     implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.legacy:legacy-support-v4:$androidXLegacySupport"
     implementation "androidx.annotation:annotation:$androidXAnnotations"
