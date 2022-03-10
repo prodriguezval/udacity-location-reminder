@@ -2,6 +2,15 @@
 
 A Todo list app with location reminders that remind the user to do something when he reaches a specific location. The app will require the user to create an account and login to set and access reminders.
 
+## About Secrets
+
+To hide the secrets from the VCS I use the plugin **secrets-gradle-plugin**, to run the app you add
+line in the local.properties file as follows:
+
+```
+MAPS_API_KEY=<YOUR_API_KEY>
+```
+
 ## Getting Started
 
 1. Clone the project to your local machine.
