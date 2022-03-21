@@ -36,11 +36,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
 
     companion object {
         private val TAG = SelectLocationFragment::class.java.simpleName
-
         private const val FINE_LOCATION_PERMISSION_REQUEST_CODE = 1
-        private const val TURN_DEVICE_LOCATION_ON_REQUEST_CODE = 29
-
-        private val DEFAULT_LAT_LNG = LatLng(-34.0, 151.0)  // Sydney
     }
 
     //Use Koin to get the view model of the SaveReminder
@@ -72,10 +68,7 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         //add the map setup implementation
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-//        TODO: add style to the map
 
-
-//        TODO: call this function after the user confirms on the selected location
         binding.button.setOnClickListener {
             onLocationSelected()
         }
@@ -85,7 +78,12 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
 
     private fun styleMap(map: GoogleMap) {
         try {
-            val success = map.setMapStyle(MapStyleOptions.loadRawResourceStyle(context, R.raw.map_style))
+            val success = map.setMapStyle(
+                MapStyleOptions.loadRawResourceStyle(
+                    requireContext(),
+                    R.raw.map_style
+                )
+            )
             if (!success) {
                 Log.e(TAG, "Style parse failed")
             }
@@ -146,7 +144,9 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         }
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
 
             enableMapMyLocation()
 
@@ -154,21 +154,22 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
 
             requestPermissions(
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                FINE_LOCATION_PERMISSION_REQUEST_CODE)
+                FINE_LOCATION_PERMISSION_REQUEST_CODE
+            )
         }
     }
 
     private fun addPoiMarker(poi: PointOfInterest) {
         marker?.remove()
-        marker = map.addMarker(MarkerOptions()
-            .position(poi.latLng)
-            .title(poi.name)
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+        marker = map.addMarker(
+            MarkerOptions()
+                .position(poi.latLng)
+                .title(poi.name)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
         )
     }
 
     private fun addMapMarker(latLng: LatLng) {
-        // A Snippet is Additional text that's displayed below the title.
         val snippet = String.format(
             Locale.getDefault(),
             "Lat: %1$.5f, Long: %2$.5f",
@@ -177,11 +178,12 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
         )
 
         marker?.remove()
-        marker = map.addMarker(MarkerOptions()
-            .position(latLng)
-            .title(getString(R.string.dropped_pin))
-            .snippet(snippet)
-            .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+        marker = map.addMarker(
+            MarkerOptions()
+                .position(latLng)
+                .title(getString(R.string.dropped_pin))
+                .snippet(snippet)
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
         )
     }
 
@@ -194,13 +196,13 @@ class SelectLocationFragment : BaseFragment(), OnMapReadyCallback {
     @SuppressLint("MissingPermission")
     private fun addLastLocationCallback() {
 
-        val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        val fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireContext())
         val lastLocationTask = fusedLocationProviderClient.lastLocation
 
-        // On completion, zoom to the user location and add marker
         lastLocationTask.addOnCompleteListener(requireActivity()) { task ->
 
-            if(task.isSuccessful) {
+            if (task.isSuccessful) {
                 val taskResult = task.result
                 taskResult?.run {
 
