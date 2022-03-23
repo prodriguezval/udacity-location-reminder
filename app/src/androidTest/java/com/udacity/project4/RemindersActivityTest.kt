@@ -35,15 +35,15 @@ import org.koin.dsl.module
 import org.koin.test.AutoCloseKoinTest
 import org.koin.test.get
 
+
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 //END TO END test to black box test the app
 class RemindersActivityTest :
-    AutoCloseKoinTest() {// Extended Koin Test - embed autoclose @after method to close Koin after every test
-
+    AutoCloseKoinTest() {
+    // Extended Koin Test - embed autoclose @after method to close Koin after every test
     private lateinit var repository: ReminderDataSource
     private lateinit var appContext: Application
-
 
     // An idling resource that waits for Data Binding to have no pending bindings.
     private val dataBindingIdlingResource = DataBindingIdlingResource()
@@ -84,7 +84,6 @@ class RemindersActivityTest :
             repository.deleteAllReminders()
         }
     }
-
 
     @Before
     fun registerIdlingResource() {
@@ -140,7 +139,6 @@ class RemindersActivityTest :
         activityScenario.close()
     }
 
-    // get activity context
     private fun getActivity(activityScenario: ActivityScenario<RemindersActivity>): Activity {
         lateinit var activity: Activity
         activityScenario.onActivity {
