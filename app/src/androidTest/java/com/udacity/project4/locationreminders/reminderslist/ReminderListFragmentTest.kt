@@ -21,6 +21,7 @@ import com.udacity.project4.locationreminders.data.local.RemindersLocalRepositor
 import com.udacity.project4.locationreminders.savereminder.SaveReminderViewModel
 import com.udacity.project4.util.DataBindingIdlingResource
 import com.udacity.project4.util.monitorFragment
+import com.udacity.project4.utils.EspressoIdlingResource
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -81,11 +82,13 @@ class ReminderListFragmentTest : AutoCloseKoinTest() {
 
     @Before
     fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
         IdlingRegistry.getInstance().register(dataBindingIdlingResource)
     }
 
     @After
     fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
         IdlingRegistry.getInstance().unregister(dataBindingIdlingResource)
     }
 
