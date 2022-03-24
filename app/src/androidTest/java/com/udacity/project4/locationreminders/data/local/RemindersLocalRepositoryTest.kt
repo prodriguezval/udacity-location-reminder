@@ -10,7 +10,6 @@ import com.udacity.project4.locationreminders.data.dto.Result
 import junit.framework.Assert.assertNotNull
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.Is.`is`
 import org.junit.After
@@ -75,6 +74,8 @@ class RemindersLocalRepositoryTest {
     fun testDataNotFound_returnError() = runBlocking {
         val result = repository.getReminder("7777")
         val error = (result is Result.Error)
-        assertThat(error, CoreMatchers.`is`(true))
+        assertThat(error, `is`(true))
+        result as Result.Error
+        assertThat(result.message, `is`("Reminder not found!"))
     }
 }
